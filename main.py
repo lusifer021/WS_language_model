@@ -14,7 +14,7 @@ class Msg(BaseModel):
 def test():
         return {"working"}
 
-@app.post("/detect/")
+@app.post("/detect")
 async def detect(item: Msg):
     message = item.message
 
