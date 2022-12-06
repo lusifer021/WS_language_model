@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from nltk.tokenize import word_tokenize
 
+import nltk
+nltk.download('popular')
+
 words = ['fuck','hookup', 'hook-up', 'sex' , 'hook']
 
 app = FastAPI()
