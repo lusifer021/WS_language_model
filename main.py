@@ -21,22 +21,26 @@ def test():
 async def detect(item: Msg):
     message = item.message
 
-    flag=1
-    blur = []
-    tk = word_tokenize(message)
-    for w in words:
+    token = word_tokenize(message)
+    tokens = [x.lower() for x in word_tokenize(message)]
 
-        if(w in tk):
+    flag =1
+    message2 = ""
+    for w in enumerate(tokens):
+        
+        # print(w)
+        if w[1] in words:
             flag=0
-            blur.append(w)
-            # break
-    
+            message2 = message2 + "*" * len(w[1]) + " "
+        else:
+            message2 = message2 + token[w[0]] + " "
+
     
     if flag==0:
         ff = 'Yes'
-        dict1 = {ff:blur}
+        dict1 = {"Status":ff, "Message" : message2}
     else:
         ff = 'No'
-        dict1 = {ff : blur}
+        dict1 = {"Status":ff, "Message" : message2}
 
     return dict1
