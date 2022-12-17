@@ -1,10 +1,14 @@
 from fastapi import FastAPI
 from nltk.tokenize import word_tokenize
-
+from utils import words
 import nltk
 nltk.download('popular')
-
-words = ['fuck','hookup', 'hook-up', 'sex' , 'hook']
+from nltk.stem import PorterStemmer
+ps = PorterStemmer()
+from nltk.stem import WordNetLemmatizer
+  
+lemmatizer = WordNetLemmatizer()
+# words = ['fuck','hookup', 'hook-up', 'sex' , 'hook']
 
 app = FastAPI()
 
@@ -29,8 +33,14 @@ async def detect(item: Msg):
     for w in enumerate(tokens):
         
         # print(w)
-        if w[1] in words:
+        if ps.stem(w[1]) in words:
             flag=0
+            message2 = message2 + "*" * len(w[1]) + " "
+        elif lemmatizer.lemmatize(w[1]) in words:
+            flag = 0
+            message2 = message2 + "*" * len(w[1]) + " "
+        elif w[1] in words:
+            flag = 0
             message2 = message2 + "*" * len(w[1]) + " "
         else:
             message2 = message2 + token[w[0]] + " "
